@@ -9,11 +9,20 @@ min_price = 1.0
 
 
 def total_revenue(purchases: dict) -> float:
-    return 0.0
+    return sum([x['price'] * x['quantity'] for x in purchases])
 
 
 def items_by_category(purchases: dict) -> dict:
-    return {}
+    items_by_category = {}
+
+    categories = set([x['category'] for x in purchases])
+
+    for category in categories:
+        items_by_category[category] = list(
+            set([x['item'] for x in purchases if x["category"] == category])
+        )
+
+    return items_by_category
 
 
 def expensive_purchases(purchases: dict, min_price: float) -> dict:
