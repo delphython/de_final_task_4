@@ -15,11 +15,11 @@ def total_revenue(purchases: dict) -> float:
 def items_by_category(purchases: dict) -> dict:
     items_by_category = {}
 
-    categories = set([x['category'] for x in purchases])
+    categories = (x['category'] for x in purchases)
 
     for category in categories:
         items_by_category[category] = list(
-            set([x['item'] for x in purchases if x["category"] == category])
+            (x['item'] for x in purchases if x["category"] == category)
         )
 
     return items_by_category
