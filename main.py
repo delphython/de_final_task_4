@@ -3,6 +3,7 @@ purchases = [
     {"item": "banana", "category": "fruit", "price": 0.5, "quantity": 5},
     {"item": "milk", "category": "dairy", "price": 1.5, "quantity": 2},
     {"item": "bread", "category": "bakery", "price": 2.0, "quantity": 3},
+    {"item": "apple", "category": "fruit", "price": 1.3, "quantity": 11},
 ]
 
 min_price = 1.0
@@ -13,16 +14,10 @@ def total_revenue(purchases: dict) -> float:
 
 
 def items_by_category(purchases: dict) -> dict:
-    items_by_category = {}
-
     categories = (x['category'] for x in purchases)
 
-    for category in categories:
-        items_by_category[category] = list(
-            (x['item'] for x in purchases if x["category"] == category)
-        )
-
-    return items_by_category
+    return {category: list(set(x['item'] for x in purchases if x['category'] == category)) 
+            for category in categories}
 
 
 def expensive_purchases(purchases: dict, min_price: float) -> dict:
