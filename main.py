@@ -9,12 +9,16 @@ purchases = [
 min_price = 1.0
 
 
+def get_categories(purchases: dict) -> list:
+    return (x['category'] for x in purchases)
+
+
 def total_revenue(purchases: dict) -> float:
     return sum([x['price'] * x['quantity'] for x in purchases])
 
 
 def items_by_category(purchases: dict) -> dict:
-    categories = (x['category'] for x in purchases)
+    categories = get_categories(purchases)
 
     return {category: list(set(x['item'] for x in purchases if x['category'] == category))
             for category in categories}
@@ -25,7 +29,18 @@ def expensive_purchases(purchases: dict, min_price: float) -> dict:
 
 
 def average_price_by_category(purchases: dict) -> list:
-    return []
+    average_price_by_category = {}
+
+    categories = get_categories(purchases)
+
+    for category in categories:
+        prices = [x['price'] for x in purchases if x['category'] == category]
+
+        avg_price = sum(prices) / len(prices)
+
+        average_price_by_category[category] = avg_price
+
+    return average_price_by_category
 
 
 def most_frequent_category(purchases: dict) -> str:
