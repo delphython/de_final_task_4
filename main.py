@@ -9,7 +9,7 @@ purchases = [
 min_price = 1.0
 
 
-def get_categories(purchases: dict) -> list:
+def get_categories(purchases: dict) -> set:
     return (x['category'] for x in purchases)
 
 
