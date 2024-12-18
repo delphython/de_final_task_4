@@ -44,7 +44,12 @@ def average_price_by_category(purchases: dict) -> list:
 
 
 def most_frequent_category(purchases: dict) -> str:
-    return ''
+    categories = get_categories(purchases)
+
+    quantity_by_category = {category: sum(x['quantity'] for x in purchases if x['category'] == category)
+                            for category in categories}
+
+    return max(quantity_by_category, key=quantity_by_category.get)
 
 
 def get_report(
@@ -56,12 +61,12 @@ def get_report(
       most_frequent_category: str,
 ) -> str:
     return f"""
-        Общая выручка: {total_revenue}
-        Товары по категориям: {items_by_category}
-        Покупки дороже {min_price}: {expensive_purchases}
-        Средняя цена по категориям: {average_price_by_category}
-        Категория с наибольшим количеством проданных товаров: {most_frequent_category}
-    """
+Общая выручка: {total_revenue}
+Товары по категориям: {items_by_category}
+Покупки дороже {min_price}: {expensive_purchases}
+Средняя цена по категориям: {average_price_by_category}
+Категория с наибольшим количеством проданных товаров: {most_frequent_category}
+"""
 
 
 total_revenue = total_revenue(purchases)
