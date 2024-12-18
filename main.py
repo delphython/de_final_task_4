@@ -16,12 +16,12 @@ def total_revenue(purchases: dict) -> float:
 def items_by_category(purchases: dict) -> dict:
     categories = (x['category'] for x in purchases)
 
-    return {category: list(set(x['item'] for x in purchases if x['category'] == category)) 
+    return {category: list(set(x['item'] for x in purchases if x['category'] == category))
             for category in categories}
 
 
 def expensive_purchases(purchases: dict, min_price: float) -> dict:
-    return {}
+    return [x for x in purchases if x['price'] >= min_price]
 
 
 def average_price_by_category(purchases: dict) -> list:
